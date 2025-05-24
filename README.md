@@ -224,11 +224,13 @@ For a comprehensive analysis and results against all defenses, please refer to o
 
 The original DataStealing paper:
 ```bibtex
-@inproceedings{Gan2024DataStealing,
+@article{gan2025datastealing,
   title={DataStealing: Steal Data from Diffusion Models in Federated Learning with Multiple Trojans},
   author={Gan, Yuan and Miao, Jiaxu and Yang, Yi},
-  booktitle={Advances in Neural Information Processing Systems (NeurIPS)},
-  year={2024} 
+  journal={Advances in Neural Information Processing Systems},
+  volume={37},
+  pages={132614--132646},
+  year={2025}
 }
 ```
 
