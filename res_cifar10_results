@@ -1,0 +1,99 @@
+# 2 attackers, collusion, scaled
+FID:  22.469474363231257
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  29.44904798695626
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  12.784591833271747
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  13.582931692633679
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  11.525575369202784
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  9.597603620199834
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+=================================
+
+# 2 attackers, collusion, no scaling
+FID:  31.72213674844221
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  34.13005984769228
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  11.179222228232106
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  13.708703566608051
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  93.60813469733432
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+=================================
+FID:  9.94138762318579
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+=================================
+
+# 2 attackers, no collusion, scaled
+FID:  13.311125871803029
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers_scaled_300-------------
+=================================
+FID:  32.82917605429975
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers_scaled_300-------------
+=================================
+FID:  12.552019951619911
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers_scaled_300-------------
+=================================
+FID:  11.864745152058049
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers_scaled_300-------------
+=================================
+FID:  10.929762571559024
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers_scaled_300-------------
+=================================
+FID:  9.562268125110563
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers_scaled_300-------------
+=================================
+
+# 2 attackers, no collusion, no scaling
+FID:  251.65893280620173
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers_300-------------
+=================================
+FID:  41.55447474912489
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers_300-------------
+=================================
+FID:  12.172272412544828
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers_300-------------
+=================================
+FID:  16.027415729256006
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers_300-------------
+=================================
+FID:  102.40925578378693
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers_300-------------
+=================================
+FID:  9.892872561455874
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers_300-------------
+=================================
+
+# 1 attacker
+FID:  21.38794351607305
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_300-------------
+=================================
+FID:  33.94140264874147
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_300-------------
+=================================
+FID:  8.016491119364389
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_300-------------
+=================================
+FID:  11.83988328740827
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_300-------------
+=================================
+FID:  13.369859352188087
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_300-------------
+=================================
+FID:  8.339456859222935
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_300-------------
+=================================

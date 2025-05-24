@@ -1,0 +1,123 @@
+# 2 attackers, collusion, scaled
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.06094135716557503
+total mse distance:  0.06973306834697723
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.1475035846233368
+total mse distance:  0.15400145947933197
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.11447814851999283
+total mse distance:  0.12325537204742432
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.08983553946018219
+total mse distance:  0.08946280181407928
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.06300260871648788
+total mse distance:  0.07130564749240875
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.10968853533267975
+total mse distance:  0.12045349180698395
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1_300-------------
+
+# 2 attackers, collusion, no scaling
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.06073177605867386
+total mse distance:  0.07684129476547241
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.05154063552618027
+total mse distance:  0.11904406547546387
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.11893870681524277
+total mse distance:  0.12621235847473145
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.042511261999607086
+total mse distance:  0.10676451772451401
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.22406771779060364
+total mse distance:  0.2401810735464096
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+total mse distance:  0.10744987428188324
+total mse distance:  0.11804795265197754
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1_300-------------
+
+# 2 attackers, no collusion, scaled
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers_scaled_300-------------
+total mse distance:  0.06572704762220383
+total mse distance:  0.0757293775677681
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers_scaled_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers_scaled_300-------------
+total mse distance:  0.14662785828113556
+total mse distance:  0.15236937999725342
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers_scaled_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers_scaled_300-------------
+total mse distance:  0.10253787785768509
+total mse distance:  0.10264086723327637
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers_scaled_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers_scaled_300-------------
+total mse distance:  0.10972438007593155
+total mse distance:  0.1183072030544281
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers_scaled_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers_scaled_300-------------
+total mse distance:  0.06380116939544678
+total mse distance:  0.07284066081047058
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers_scaled_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers_scaled_300-------------
+total mse distance:  0.1131092756986618
+total mse distance:  0.12358155846595764
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers_scaled_300-------------
+
+# 2 attackers, no collusion, no scaling
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers_300-------------
+total mse distance:  0.20126564800739288
+total mse distance:  0.208701029419899
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers_300-------------
+total mse distance:  0.032281823456287384
+total mse distance:  0.118251271545887
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers_300-------------
+total mse distance:  0.11328773200511932
+total mse distance:  0.11782044917345047
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers_300-------------
+total mse distance:  0.029316365718841553
+total mse distance:  0.1151861846446991
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers_300-------------
+total mse distance:  0.2507271468639374
+total mse distance:  0.2632667124271393
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers_300-------------
+total mse distance:  0.10993338376283646
+total mse distance:  0.1209334135055542
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers_300-------------
+
+# 1 attacker
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_300-------------
+total mse distance:  0.020829347893595695
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_300-------------
+total mse distance:  0.050594307482242584
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_300-------------
+total mse distance:  0.1232941523194313
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_300-------------
+total mse distance:  0.06835951656103134
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_300-------------
+total mse distance:  0.013324395753443241
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_300-------------
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_300-------------
+total mse distance:  0.1254729926586151
+-----------./results_attack/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_300-------------

@@ -1,0 +1,68 @@
+#!/bin/bash
+
+#SBATCH --job-name="testing_mse6"
+#SBATCH --time=24:00:00
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --mem-per-cpu=3G
+#SBATCH --partition=gpu
+#SBATCH --gpus-per-node=rtx3090:1
+
+# Commands to execute:
+#module load Anaconda3
+#eval "$(conda shell.bash hook)"
+#conda activate datastealing
+
+# 2 attackers colluding scaled
+
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_scaled_collusion_2_lambda_0.1' 42
+
+# 2 attackers colluding no-scale
+
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_collusion_2_lambda_0.1' 42
+
+# 2 attackers no-collusion scaled
+
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers_scaled' 42
+
+# 2 attackers no-collusion no-scale
+
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold_two_attackers' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum_two_attackers' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum_two_attackers' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics_two_attackers' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense_two_attackers' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa_two_attackers' 42
+
+# 1 attacker
+
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 1000 'foolsgold_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_foolsgold' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 1000 'krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_krum' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 1000 'multi-krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_multi-krum' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 1000 'multi-metrics_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_multi-metrics' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 1000 'no-defense_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_no-defense' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 1000 'rfa_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_rfa' 42
+
+# 2 attackers colluding scaled 2
+
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_collusion_2_lambda_0.1_single_dataseed_42_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_collusion_2_lambda_0.1_single_dataseed_42_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_collusion_2_lambda_0.1_single_dataseed_42_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_collusion_2_lambda_0.1_single_dataseed_42_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_collusion_2_lambda_0.1_single_dataseed_42_scaled' 42
+python bash_test_diffusion_attack_uncond_multi_mask_seed.py "cuda:0" 500 'rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_collusion_2_lambda_0.1_single_dataseed_42_scaled' 42
