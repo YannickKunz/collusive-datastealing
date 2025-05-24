@@ -205,7 +205,7 @@ Our experiments on CIFAR-10 demonstrate the heightened threat of collusive attac
 |                                               | Multi-Metrics   | 0.0425                | 0.1068                | 0.0747             | 13.71        |
 |                                               | **Average**     | **0.1009**            | **0.1312**            | **0.1160**         | **32.38**    |
 | **2 Attackers (Collusion λ=0.1, Scaled)**     | No-Defense      | 0.0630                | 0.0713                | 0.0672             | 11.53        |
-| *Initial run*                                 | Krum            | 0.1475                | 0.0898                | 0.1187             | 29.45        |
+|                                               | Krum            | 0.1475                | 0.0898                | 0.1187             | 29.45        |
 |                                               | Multi-Krum      | 0.0697                | 0.1232                | 0.0965             | 12.78        |
 |                                               | Foolsgold       | 0.0609                | 0.1145                | 0.0877             | 22.47        |
 |                                               | RFA             | 0.1097                | 0.1205                | 0.1151             | 9.60         |
