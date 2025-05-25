@@ -1,0 +1,111 @@
+FID:  7.758379366252711
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300-------------
+=================================
+FID:  7.758379366252711
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300-------------
+=================================
+FID:  6.0095464733393555
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300-------------
+=================================
+FID:  6.856880198352712
+FID:  6.61922247674795
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_300-------------
+=================================
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300-------------
+=================================
+FID:  5.913819000263402
+FID:  6.686260772232799
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300-------------
+=================================
+s=================================
+FID:  24.97705582027021
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-20-03-54_20250520_092543-------------
+=================================
+FID:  10.211632143359566
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-20-06-08_20250520_094220-------------
+================================
+FID:  9.463359346909897
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-metrics_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_300_2025-05-20-07-44_20250520_101926-------------
+=================================
+FID:  10.460933022671668
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_100_2025-05-20-09-44_20250520_102755-------------
+=================================
+FID:  9.350916233581074
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_rfa_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-20-11-44_20250520_114633-------------
+=================================
+FID:  9.531405634125804
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-20-20-50_20250520_215816-------------
+=================================
+FID:  8.609481893353575
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_foolsgold_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-20-21-31_20250520_231735-------------
+=================================
+FID:  12.297016583699929
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_multi-krum_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-20-23-41_20250521_184151-------------
+=================================
+FID:  9.48775585146052
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_no-defense_500_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_2025-05-22-23-55_20250523_073056-------------
+=================================
+FID:  8.285476715179584
+-----------./results/CADASCP_no-defense_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_2025-05-24-03-42_20250524_110832-------------
+=================================
+FID:  35.70066431777684
+-----------./results/CADASCP_krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_2025-05-24-04-13_20250524_121034-------------
+=================================
+FID:  8.818844014685737
+-----------./results/CADASCP_multi-krum_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-24-04-15_20250524_130827-------------
+=================================
+FID:  8.707855194957006
+-----------./results/CADASCP_rfa_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_2025-05-24-09-55_20250524_154037-------------
+=================================
+FID:  8.335763757210714
+-----------./results/CADASCP_foolsgold_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_100_2025-05-24-06-57_20250524_165808-------------
+=================================
+FID:  9.241067748210128
+-----------./results/CADASCP_multi-metrics_1000_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_MC3_300_2025-05-24-04-13_20250524_211935-------------
+=================================
+FID:  10.417067149724119
+-----------./results/CADASCP_no-defense_333_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_094103-------------
+=================================
+FID:  12.201680306758135
+-----------./results/CADASCP_rfa_333_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_100129-------------
+=================================
+-----------./results/CADASCP_rfa_250_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_101338-------------
+=================================
+-----------./results/CADASCP_rfa_200_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_101340-------------
+=================================
+FID:  11.633151693625507
+-----------./results/CADASCP_no-defense_250_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_095909-------------
+=================================
+FID:  11.268212827490345
+-----------./results/CADASCP_rfa_333_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_103246-------------
+=================================
+FID:  11.445053912871685
+-----------./results/CADASCP_rfa_250_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_105155-------------
+=================================
+FID:  12.590533185502863
+-----------./results/CADASCP_rfa_200_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_111016-------------
+=================================
+FID:  32.68503334788835
+-----------./results/CADASCP_krum_333_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_113548-------------
+=================================
+FID:  17.169680054234107
+-----------./results/CADASCP_multi-krum_333_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_114022-------------
+=================================
+FID:  26.458895978073656
+-----------./results/CADASCP_krum_250_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_115351-------------
+=================================
+FID:  24.531840283438783
+-----------./results/CADASCP_multi-krum_250_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_300_20250525_115819-------------
+=================================
+FID:  9.487550629487316
+-----------./results/CADASCP_multi-metrics_333_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_125340-------------
+=================================
+FID:  10.77629434081257
+-----------./results/CADASCP_multi-metrics_250_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_131733-------------
+=================================
+FID:  13.691129064723839
+-----------./results/CADASCP_multi-metrics_200_0.5_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_0.6_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_134112-------------
+=================================
+FID:  51.38893993273831
+-----------./results/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid_krum_500_0.7_diffpoi_proportion_0.4_scale_5.0_ema_0.9999_global_adaptive_0.2_single_dataseed_42_MC3_300_20250525_145056-------------
+=================================
