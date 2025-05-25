@@ -87,6 +87,15 @@ collusive-datastealing/
 │   ├── test_fid.sh                                      # Combined FID evaluation script
 │   ├── test_mses.sh                                     # Combined MSE evaluation script
 ├── stats/                                               # CIFAR-10 train images as npz
+├── tmp/                                             # C-ADASCP scale rate logs
+│   ├── CADASCP3/...                                     # C-ADASCP scale rate logs
+│   ├── attacker.log                                     # C-ADASCP scale rate logs
+│   ├── attacker_foolsgold.log                           # C-ADASCP scale rate logs
+│   ├── attacker_krum.log                                # C-ADASCP scale rate logs
+│   ├── attacker_multi-krum.log                          # C-ADASCP scale rate logs
+│   ├── attacker_multi-metrics.log                       # C-ADASCP scale rate logs
+│   ├── attacker_no-defense.log                          # C-ADASCP scale rate logs
+│   ├── attacker_rfa.log                                 # C-ADASCP scale rate logs
 ├── attackerDataset.py                                   # Attacker dataset prep
 ├── bash_test_diffusion_attack_uncond_multi_mask_seed.py # MSE evaluation file, need to update this file based on your logs/ and images/ folders
 ├── bash_test_fid_multi_defense.py                       # FID evaluation file
