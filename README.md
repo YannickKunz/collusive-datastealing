@@ -218,7 +218,7 @@ Key observations:
 *   **Collusion via Model Similarity (Scaled)** often provides a better balance, improving MSE against some robust defenses like Multi-Krum compared to single or uncoordinated attackers, while maintaining good FID.
 *   **Coordinated AdaSCP (C-AdaSCP)** [Summarize its distinct advantage once results are in].
 
-For a comprehensive analysis and results against all defenses, please refer to our paper: [Link to paper](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
+For a comprehensive analysis and results against all defenses, please refer to our paper: [Link to paper](https://drive.google.com/file/d/1ivFbPe6RBW_rfQJlGd3xd6QWaVRHi5sa/view?usp=sharing).
 
 ## Citation
 
