@@ -15,7 +15,7 @@ from torchvision import transforms
 from tqdm import trange, tqdm
 
 from diffusion_fed import GaussianDiffusionTrainer, GaussianDiffusionSampler
-from clients_fed_single_coll import ClientsGroupMultiTargetAttackedNonIID # Ensure this matches your filename
+from clients_fed_single_coll import ClientsGroupMultiTargetAttackedNonIID
 from model import UNet
 from score.both import get_inception_and_fid_score
 
@@ -28,13 +28,13 @@ FLAGS = flags.FLAGS
 flags.DEFINE_string('dataset_name', None, help='dataset name')
 flags.DEFINE_bool('train', False, help='train from scratch')
 flags.DEFINE_bool('eval', False, help='load ckpt.pt and evaluate FID and IS')
-# UNet
+
 flags.DEFINE_integer('ch', 128, help='base channel of UNet')
 flags.DEFINE_multi_integer('ch_mult', [1, 2, 2, 2], help='channel multiplier')
 flags.DEFINE_multi_integer('attn', [1], help='add attention to these levels')
 flags.DEFINE_integer('num_res_blocks', 2, help='# resblock in each level')
 flags.DEFINE_float('dropout', 0.1, help='dropout rate of resblock')
-# Gaussian Diffusion
+
 flags.DEFINE_float('beta_1', 1e-4, help='start beta value')
 flags.DEFINE_float('beta_T', 0.02, help='end beta value')
 flags.DEFINE_integer('T', 1000, help='total diffusion steps')
@@ -42,7 +42,7 @@ flags.DEFINE_enum('mean_type', 'epsilon', [
                   'xprev', 'xstart', 'epsilon'], help='predict variable')
 flags.DEFINE_enum('var_type', 'fixedlarge', [
                   'fixedlarge', 'fixedsmall'], help='variance type')
-# Training
+
 flags.DEFINE_float('lr', 2e-4, help='target learning rate')
 flags.DEFINE_float('grad_clip', 1., help="gradient norm clipping")
 flags.DEFINE_integer('total_steps', 800000, help='total training steps')
@@ -52,20 +52,20 @@ flags.DEFINE_integer('batch_size', 128, help='batch size')
 flags.DEFINE_integer('num_workers', 4, help='workers of Dataloader')
 flags.DEFINE_float('ema_decay', 0.9999, help="ema decay rate")
 flags.DEFINE_bool('parallel', False, help='multi gpu training')
-# Fed
+
 flags.DEFINE_integer('mid_T', 500, help='mid T split local global')
-flags.DEFINE_bool('use_labels', False, help='use labels') # Defaulted to False based on your original main
-flags.DEFINE_integer('num_labels', None, help='num of classes') # Defaulted to None
+flags.DEFINE_bool('use_labels', False, help='use labels') 
+flags.DEFINE_integer('num_labels', None, help='num of classes') 
 flags.DEFINE_integer('local_epoch', 1, help='local epoch')
 flags.DEFINE_integer('total_round', 300, help='total round')
 flags.DEFINE_integer('client_num', 5, help='client num')
 flags.DEFINE_integer('save_round', 100, help='save round')
-# Logging & Sampling
+
 flags.DEFINE_string(
     'logdir', None, help='log directory')
-flags.DEFINE_integer('sample_size', 100, "sampling size of images") # Defaulted, ensure it's okay
-flags.DEFINE_integer('sample_step', 1000, help='frequency of sampling') # Defaulted
-# Evaluation
+flags.DEFINE_integer('sample_size', 100, "sampling size of images") 
+flags.DEFINE_integer('sample_step', 1000, help='frequency of sampling') 
+
 flags.DEFINE_integer(
     'save_step', 50000, help='frequency of saving checkpoints, 0 to disable during training')
 flags.DEFINE_integer(
@@ -73,7 +73,7 @@ flags.DEFINE_integer(
 flags.DEFINE_integer('num_images', 50000,
                      help='the number of generated images for evaluation')
 flags.DEFINE_bool('fid_use_torch', False, help='calculate IS and FID on gpu')
-flags.DEFINE_string('fid_cache', None, help='FID cache') # Defaulted to None
+flags.DEFINE_string('fid_cache', None, help='FID cache') 
 
 # scaling flags
 flags.DEFINE_bool('scaled', False, help='use scaled dataset')
@@ -82,7 +82,7 @@ flags.DEFINE_bool('scaled', False, help='use scaled dataset')
 flags.DEFINE_integer('num_colluders', 2, help='number of colluders must be ≤ client_num')
 flags.DEFINE_float('lambda_reg', 0.1, help='regularization strength for colluding attacker similarity (set > 0 to enable)')
 
-### attack/ defense
+
 flags.DEFINE_string('defense_technique', 'no-defense', help='defense technique: no-defense/krum/multi-metrics')
 flags.DEFINE_integer('part_nets_per_round', 5, help='Number of active users that are sampled per FL round to participate.')
 flags.DEFINE_float('stddev', 0.158, help="choose std_dev for weak-dp defense")
@@ -108,30 +108,18 @@ flags.DEFINE_integer('data_distribution_seed', 42, help='the data distribution s
 
 device = torch.device('cuda:0')
 
-# import ray # Ray was in your original file, but not used in the non-actor version.
-# import time # Time was in your original file.
-
-# Logger setup for norm-clipping-adaptive, if you re-enable it.
-# import logging as py_logging # Alias to avoid conflict with client's logging
-# logger = py_logging.getLogger(__name__) # For main script's own logging if needed
-
 def fed_avg_aggregator(net_list, net_freq):
     sum_parameters = None
     sum_ema_parameters = None
     client_idx = [i for i in range(len(net_list))]
 
     for c in client_idx:
-        global_parameters_tuple = net_list[c] # Expecting (model, ema_model)
+        global_parameters_tuple = net_list[c] 
         if not (isinstance(global_parameters_tuple, tuple) and len(global_parameters_tuple) == 2):
-            # This might happen if a client returns something else, or defense modifies the list
             print(f"Warning: Item in net_list for client {c} is not a tuple of two models. Skipping.")
             continue
         
         current_model, current_ema_model = global_parameters_tuple
-
-        # Ensure they are model objects, not state_dicts, if fed_avg_aggregator expects models
-        # If they are already state_dicts, then .state_dict() is not needed.
-        # The client's local_train returns model objects.
         global_parameters_sd = current_model.state_dict()
         global_ema_parameters_sd = current_ema_model.state_dict()
 
@@ -141,7 +129,7 @@ def fed_avg_aggregator(net_list, net_freq):
                 sum_parameters[key] = var.clone() * net_freq[c]
         else:
             for var in sum_parameters:
-                if var in global_parameters_sd: # Check key exists
+                if var in global_parameters_sd: 
                     sum_parameters[var].add_(global_parameters_sd[var] * net_freq[c])
 
         if sum_ema_parameters is None:
@@ -150,13 +138,12 @@ def fed_avg_aggregator(net_list, net_freq):
                 sum_ema_parameters[key] = var.clone() * net_freq[c]
         else:
             for var in sum_ema_parameters:
-                if var in global_ema_parameters_sd: # Check key exists
+                if var in global_ema_parameters_sd: 
                     sum_ema_parameters[var].add_(global_ema_parameters_sd[var] * net_freq[c])
     
     if sum_parameters is None or sum_ema_parameters is None :
-        # This case happens if net_list was empty or all items were invalid
         print("Warning: Aggregation resulted in None parameters. Did any clients participate?")
-        return None, None # Or raise error
+        return None, None
 
     return sum_parameters, sum_ema_parameters
 
@@ -167,7 +154,7 @@ def init_defender(FLAGS):
     elif defense_technique == "norm-clipping" or defense_technique == "norm-clipping-adaptive":
         _defender = WeightDiffClippingDefense(norm_bound=FLAGS.norm_bound)
     elif defense_technique == "weak-dp":
-        _defender = WeightDiffClippingDefense(norm_bound=FLAGS.norm_bound) # Clips, noise added separately
+        _defender = WeightDiffClippingDefense(norm_bound=FLAGS.norm_bound) 
     elif defense_technique == "multi-metrics":
         _defender = Multi_metrics(num_workers=FLAGS.part_nets_per_round, num_adv=2, p=FLAGS.multi_p) # num_adv is hardcoded
     elif defense_technique == "krum":
@@ -179,7 +166,7 @@ def init_defender(FLAGS):
     elif defense_technique == "foolsgold":
         _defender = FoolsGold()
     else:
-        raise NotImplementedError("Unsupported defense method !") # raise error instead of pass
+        raise NotImplementedError("Unsupported defense method !")
     
     return _defender
 
@@ -190,28 +177,27 @@ def train():
     torch.cuda.manual_seed_all(42)
     
     if FLAGS.dataset_name == 'cifar10':
-        FLAGS.logdir = './logs/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid' # Original name
+        FLAGS.logdir = './logs/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid' 
         FLAGS.img_size = 32
     elif FLAGS.dataset_name == 'celeba':
-        FLAGS.logdir = './logs/celeba_fedavg_att_mul_uncond_def_noniid' # Original name
+        FLAGS.logdir = './logs/celeba_fedavg_att_mul_uncond_def_noniid'
         FLAGS.img_size = 64
     else:
-        raise NotImplementedError("Dataset not implemented in main.") # Check dataset_name before logdir
+        raise NotImplementedError("Dataset not implemented in main.")
 
-    # Auto-set poison flags based on poison_type
+
     FLAGS.use_model_poison = (FLAGS.poison_type == 'model_poison')
     FLAGS.use_pgd_poison = (FLAGS.poison_type == 'pgd_poison')
     if FLAGS.poison_type == 'critical_poison': FLAGS.use_critical_poison = 1
     elif FLAGS.poison_type == 'diff_poison': FLAGS.use_critical_poison = 2
     elif FLAGS.poison_type == 'wfreeze_poison': FLAGS.use_critical_poison = 3
-    else: FLAGS.use_critical_poison = 0 # Default if not one of the critical types
+    else: FLAGS.use_critical_poison = 0
 
     FLAGS.use_bclayersub_poison = (FLAGS.poison_type == 'bclayersub')
-    FLAGS.use_layer_substitution = (FLAGS.poison_type == 'bclayersub') # LayerSub only if bclayersub
+    FLAGS.use_layer_substitution = (FLAGS.poison_type == 'bclayersub')
     FLAGS.use_no_poison = (FLAGS.poison_type == 'no_poison')
 
 
-    # Construct logdir based on flags
     if FLAGS.poison_type == 'model_poison':
         FLAGS.logdir = os.path.join(FLAGS.logdir, FLAGS.defense_technique+'_'+
                                     str(FLAGS.num_targets)+'_'+str(FLAGS.batch_size_attack_per)+
@@ -219,7 +205,7 @@ def train():
     elif FLAGS.poison_type == 'pgd_poison':
         FLAGS.logdir = os.path.join(FLAGS.logdir, FLAGS.defense_technique+'_'+
                                     str(FLAGS.num_targets)+'_'+str(FLAGS.batch_size_attack_per)+
-                                    '_pgdpoi_8.0'+'_ema_'+str(FLAGS.ema_scale)) # 8.0 hardcoded
+                                    '_pgdpoi_8.0'+'_ema_'+str(FLAGS.ema_scale)) 
     elif FLAGS.poison_type in ['critical_poison', 'diff_poison', 'wfreeze_poison']:
         poison_prefix = {'critical_poison': 'cripoi', 'diff_poison': 'diffpoi', 'wfreeze_poison': 'wfreepoi'}[FLAGS.poison_type]
         FLAGS.logdir = os.path.join(FLAGS.logdir, FLAGS.defense_technique+'_'+str(FLAGS.num_targets)+'_'
@@ -232,34 +218,30 @@ def train():
     elif FLAGS.poison_type == 'data_poison':
         FLAGS.logdir = os.path.join(FLAGS.logdir, FLAGS.defense_technique+'_'+str(FLAGS.num_targets)+'_'+
                                     str(FLAGS.batch_size_attack_per)+'_datapoi'+'_ema_'+str(FLAGS.ema_scale))
-    elif FLAGS.poison_type == 'no_poison': # Explicitly no_poison
+    elif FLAGS.poison_type == 'no_poison': 
         FLAGS.logdir = os.path.join(FLAGS.logdir, FLAGS.defense_technique+'_'+str(FLAGS.num_targets)+'_'+
                                     str(FLAGS.batch_size_attack_per)+'_nopoi'+'_ema_'+str(FLAGS.ema_scale))
-    else: # Fallback for unknown poison type, or if base logdir should be used
+    else: 
         FLAGS.logdir = os.path.join(FLAGS.logdir, FLAGS.defense_technique+'_'+str(FLAGS.num_targets)+'_'+
                                     str(FLAGS.batch_size_attack_per)+f'_{FLAGS.poison_type}'+'_ema_'+str(FLAGS.ema_scale))
 
 
     if FLAGS.defense_technique == 'multi-metrics':
         FLAGS.logdir = FLAGS.logdir + '_' + str(FLAGS.multi_p)
-
-    # Note: use_layer_substitution is now tied to bclayersub, so this might be redundant if poison_type is bclayersub
-    # if FLAGS.use_layer_substitution: 
-    #     FLAGS.logdir = FLAGS.logdir + '_LayerSub' 
+ 
 
     if FLAGS.global_pruning:
         FLAGS.logdir = FLAGS.logdir + '_global'
     
     if FLAGS.use_adaptive:
-        if FLAGS.poison_type == 'diff_poison': # Adaptive only for diff_poison as per original
+        if FLAGS.poison_type == 'diff_poison': 
             FLAGS.logdir = FLAGS.logdir + f'_adaptive_{FLAGS.adaptive_lr}'
-        # else: # Original had raise NotImplementedError, keeping it restrictive
-            # raise NotImplementedError('Adaptive scale is currently only implemented for diff_poison.')
 
-    if FLAGS.num_colluders is not None: # Check if the flag is provided (could be 0)
+
+    if FLAGS.num_colluders is not None: 
         FLAGS.logdir = FLAGS.logdir + f'_collusion_{FLAGS.num_colluders}_lambda_{FLAGS.lambda_reg}'
 
-    if FLAGS.scaled and FLAGS.num_targets == 500: # Original condition for 'scaled' suffix
+    if FLAGS.scaled and FLAGS.num_targets == 500: 
         FLAGS.logdir = FLAGS.logdir + f'_single_dataseed_{FLAGS.data_distribution_seed}_scaled'
     else:
         FLAGS.logdir = FLAGS.logdir + f'_single_dataseed_{FLAGS.data_distribution_seed}'
@@ -270,7 +252,7 @@ def train():
     print('model_poison_scale_rate: ', FLAGS.model_poison_scale_rate)
     print('use_pgd_poison: ', FLAGS.use_pgd_poison)
     print('use_critical_poison (algo type): ', FLAGS.use_critical_poison)
-    print('use_layer_substitution: ', FLAGS.use_layer_substitution) # Tied to bclayersub
+    print('use_layer_substitution: ', FLAGS.use_layer_substitution) 
     print('use_bclayersub_poison: ', FLAGS.use_bclayersub_poison)
     print('global_pruning: ', FLAGS.global_pruning)
     print('use_adaptive: ', FLAGS.use_adaptive, FLAGS.adaptive_lr if FLAGS.use_adaptive else "")
@@ -299,11 +281,11 @@ def train():
     # log setup
     os.makedirs(os.path.join(FLAGS.logdir, 'sample'), exist_ok=True)
     x_T_sample = torch.randn(FLAGS.sample_size if FLAGS.num_labels is None else FLAGS.num_labels, 
-                             3, FLAGS.img_size, FLAGS.img_size) # Adjust sample size for labels
-    x_T_sample = x_T_sample.to(device) # Renamed x_T to x_T_sample to avoid conflict
+                             3, FLAGS.img_size, FLAGS.img_size) 
+    x_T_sample = x_T_sample.to(device) 
     
     writer = SummaryWriter(FLAGS.logdir)
-    # writer.flush() # Not strictly needed here, done at close or periodically
+    
     with open(os.path.join(FLAGS.logdir, "flagfile.txt"), 'w') as f:
         f.write(FLAGS.flags_into_string())
 
@@ -403,14 +385,7 @@ def train():
                 print("Error: net_avg_server_copy not initialized for norm-clipping-adaptive. Skipping defense.")
             else:
                 for net_idx, client_model_tuple_def_adapt in enumerate(net_list_round):
-                    # exec might modify client_model_tuple_def_adapt in-place or return new
-                    # Assuming it modifies in-place for clipping.
-                    # For collecting norm diff, it needs to be done *before* clipping usually.
-                    # This defense's exec should handle both diff calculation and clipping.
-                    # Let's assume WeightDiffClippingDefense can return the diff if needed, or store it.
-                    # For simplicity, assuming _defender.exec applies clipping. Diff collection needs more.
                      _defender.exec(client_model=client_model_tuple_def_adapt, global_model=net_avg_server_copy)
-            # norm_diff_collector_adaptive.extend(current_norm_diffs_this_round) # TODO: Populate this if defense returns diffs
 
         elif FLAGS.defense_technique == "weak-dp": # Clipping part
             if net_avg_server_copy is None:
@@ -421,16 +396,12 @@ def train():
             # Noise addition happens *after* aggregation for weak-dp
 
         elif FLAGS.defense_technique in ["multi-metrics", "krum", "multi-krum", "rfa", "foolsgold"]:
-            # These defenses might change the set of models in net_list_round or their weights in net_freq
-            # Ensure the defender's exec method signature matches what's passed.
-            # Example for Krum-like:
             if FLAGS.defense_technique == "krum": # Single Krum
                 net_list_round, net_freq, krum_epoch_choice, krum_global_choice = _defender.exec(
                                                         client_models=net_list_round,
                                                         num_dps=clients_targets_num,
                                                         g_user_indices=current_round_participants_indices,
                                                         device=device)
-                # You can use krum_epoch_choice and krum_global_choice if needed for logging or other logic
                 print(f"Krum selected client index (local to this round's participants): {krum_epoch_choice}")
                 print(f"Krum selected client index (global): {krum_global_choice}")
 
@@ -459,9 +430,6 @@ def train():
             # init_defender should raise error for unsupported, so this might not be reached.
             pass 
         
-        # Aggregate client updates (which are (model, ema_model) tuples)
-        # fed_avg_aggregator expects list of (model, ema_model) and frequencies
-        # It returns (sum_parameters_state_dict, sum_ema_parameters_state_dict)
         sum_params_sd, sum_ema_params_sd = fed_avg_aggregator(net_list_round, net_freq)
 
         if sum_params_sd is None or sum_ema_params_sd is None:
@@ -505,14 +473,8 @@ def train():
             clients_group.clients_set[c_idx_distribute].set_global_parameters(sum_params_sd, sum_ema_params_sd)
 
         # Sampling and Logging
-        if (round_idx + 1) % FLAGS.sample_step == 0 or round_idx == FLAGS.total_round -1 : # Sample at sample_step or last round
-            samples_list = [] # Renamed samples
-            # Use a representative client for sampling or average sampling logic if needed
-            # For now, using client 0 as representative for unconditional sampling
-            # If conditional, then loop through labels like original.
-            # The client's get_sample needs x_T_sample
-            
-            # Ensure client 0 exists and is initialized
+        if (round_idx + 1) % FLAGS.sample_step == 0 or round_idx == FLAGS.total_round -1 :
+            samples_list = []
             if len(clients_group.clients_set) > 0 and clients_group.clients_set[0].global_ema_model is not None:
                 client_for_sampling = clients_group.clients_set[0] # Sample from client 0
                 with torch.no_grad():
@@ -523,7 +485,7 @@ def train():
                         # Adjust x_T_sample shape for conditional if needed, or sample one by one
                         x_T_cond_sample = torch.randn(labels_for_sample.size(0), 3, FLAGS.img_size, FLAGS.img_size, device=device)
                         x_0_sampled = client_for_sampling.get_sample(x_T_cond_sample, 0, FLAGS.T-1, labels_for_sample)
-                    samples_list.append(x_0_sampled.cpu()) # Move to CPU before cat if memory is an issue
+                    samples_list.append(x_0_sampled.cpu())
             
                 if samples_list:
                     samples_tensor = torch.cat(samples_list, dim=0)

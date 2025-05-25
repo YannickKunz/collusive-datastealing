@@ -231,6 +231,7 @@ def train():
         else:
             raise NotImplementedError('not implemented gradient.')
 
+    # Changed naming
     FLAGS.logdir = FLAGS.logdir + f'_single_dataseed_{FLAGS.data_distribution_seed}_{FLAGS.defense_technique}'
 
 

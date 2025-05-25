@@ -338,7 +338,7 @@ class AttackerClientMultiTargetNonIID(object):
         self.global_ema_sampler = None
 
         self._step_cound = 0
-        
+        # Modifications for COLLUSION
         # <<< ADDED START >>>
         self.num_colluders = num_colluders
         self.lambda_reg = lambda_reg
@@ -364,6 +364,7 @@ class AttackerClientMultiTargetNonIID(object):
                 target_dict[key].data * decay +
                 source_dict[key].data * (1 - decay))
 
+    # Modifications for COLLUSION
     # <<< ADDED START >>>
     def set_colluder_refs(self, other_colluder_refs):
         """Receives references to other colluding clients"""
@@ -679,8 +680,7 @@ class AttackerClientMultiTargetNonIID(object):
                                     self.indicator_indices[temp] = ind
 
 
-                for idx_val in self.indicator_indices: # Renamed idx to idx_val
-                    # Make sure these divisions are correct for your model structure
+                for idx_val in self.indicator_indices:
                     i0 = idx_val//(256*3*3) 
                     i1 = idx_val%(256*3*3)//(3*3)
                     i2 = idx_val%(3*3)//3
@@ -700,13 +700,11 @@ class AttackerClientMultiTargetNonIID(object):
         elif self.use_critical_poison==3:
             history_weights = self.previous_global_model.state_dict()
             length=len(candidate_layers)
-            ### keep proportion weight [AAAI 2023 On the Vulnerability of Backdoor Defenses for Federated Learning]
             for layer in history_weights.keys():
                 candidate_weights[layer] = (model_weights[layer] - history_weights[layer]) * model_weights[layer]
                 n_weight = candidate_weights[layer].numel()
-                ### keep proportion weight
-                if n_weight > 0 : # Add check for empty tensor
-                    idx_to_get = min(int(n_weight * proportion), n_weight -1) # ensure index is valid
+                if n_weight > 0 : 
+                    idx_to_get = min(int(n_weight * proportion), n_weight -1)
                     if idx_to_get < 0: idx_to_get = 0 # Handle case if n_weight * proportion is very small
                     theta = torch.sort(candidate_weights[layer].flatten(), descending=True)[0][idx_to_get]
                     candidate_weights[layer] = candidate_weights[layer] < theta
@@ -726,12 +724,12 @@ class AttackerClientMultiTargetNonIID(object):
 
     def reset_weight(self, mask):
         for key, value in self.global_model.state_dict().items():
-            if key in mask.keys() and key in self.stored_model_weights: # Added check for key in stored_model_weights
+            if key in mask.keys() and key in self.stored_model_weights:
                 value[mask[key]] = self.stored_model_weights[key][mask[key]]
 
     def update_layer_require_grad(self, candidate_layers):
         count = 0
-        for (name, param), requires_grad_flag in zip(self.global_model.named_parameters(), candidate_layers): # Renamed requires_grad
+        for (name, param), requires_grad_flag in zip(self.global_model.named_parameters(), candidate_layers):
             param.requires_grad = bool(requires_grad_flag)
             count += 1
         assert(count == len(candidate_layers))
@@ -742,16 +740,14 @@ class AttackerClientMultiTargetNonIID(object):
         feedback = []
         num_chosen_client = []
         weight_g = self.global_model.state_dict()
-        # self.his_scale_rate.append(self.scale_rate)
-        for i in range(min(1, len(self.indicator_indices_mat))): # Check length of indicator_indices_mat
-            if not self.indicator_indices_mat: continue # Skip if empty
+        for i in range(min(1, len(self.indicator_indices_mat))):
+            if not self.indicator_indices_mat: continue
             idx = self.indicator_indices_mat[i]
-            # Ensure idx is a list/tuple of indices for multi-dimensional tensor access
-            if isinstance(idx, list) and len(idx) == 4: # Assuming 4D tensor like conv weights
+            if isinstance(idx, list) and len(idx) == 4:
                  delta = weight_g[self.indicator_layer_name][idx[0], idx[1], idx[2], idx[3]].item() - self.indicator_param[i][0]
-            elif isinstance(idx, torch.Tensor) and idx.ndim == 0: # scalar index for 1D tensor
+            elif isinstance(idx, torch.Tensor) and idx.ndim == 0:
                  delta = weight_g[self.indicator_layer_name][idx].item() - self.indicator_param[i][0]
-            else: # Fallback or error for unexpected idx format
+            else:
                  logging.warning(f"Unexpected idx format in read_indicator: {idx}")
                  continue
 
@@ -759,7 +755,7 @@ class AttackerClientMultiTargetNonIID(object):
             if delta_x == 0: delta_x = 1e-9 # Avoid division by zero
             feedback.append( delta / delta_x) 
 
-        for i, f_val in enumerate(feedback): # Renamed f to f_val
+        for i, f_val in enumerate(feedback):
             idx = self.indicator_indices_mat[i]
             if f_val > 1:
                 tmp_num = (self.adaptive_k-1) / (f_val-1) if (f_val-1) != 0 else float('inf')
@@ -779,13 +775,12 @@ class AttackerClientMultiTargetNonIID(object):
                 new_scale = min(median_reject_scale_rate, new_scale)
                 logging.info(f'median_reject_scale_rate: {median_reject_scale_rate}')
             
-            self.scale_rate = self.scale_rate * (1-self.adaptive_lr) + new_scale * self.adaptive_lr # momentum=0.5
+            self.scale_rate = self.scale_rate * (1-self.adaptive_lr) + new_scale * self.adaptive_lr
             self.accepted_before = True
             logging.info(f'scale_rate: {self.scale_rate}, {num_chosen_client}')
 
-        else: # too larget scale_rate
+        else:
             self.his_rejected.append(copy.deepcopy(self.scale_rate))
-            ###
             self.his_rejected.sort()
             if len(self.his_accepted) > 10:
                 pos = int(len(self.his_accepted) * 0.5)
@@ -793,7 +788,7 @@ class AttackerClientMultiTargetNonIID(object):
                 self.scale_rate = max(self.scale_rate * (1-self.adaptive_lr), median_accept_scale_rate)
             else:
                 self.scale_rate = self.scale_rate * (1-self.adaptive_lr)
-            if self.accepted_before == True: # accept before and reject this time, search in a finer range
+            if self.accepted_before == True:
                 self.adaptive_lr = self.adaptive_lr * self.adaptive_decay
             self.accepted_before = False
 
@@ -802,8 +797,7 @@ class AttackerClientMultiTargetNonIID(object):
 
         self.scale_rate = max(self.scale_rate, 0.8)
 
-        ### reset indicator weight
-        for i in range(min(1, len(self.indicator_indices_mat))): # Check length
+        for i in range(min(1, len(self.indicator_indices_mat))):
             if not self.indicator_indices_mat: continue
             idx = self.indicator_indices_mat[i]
             if isinstance(idx, list) and len(idx) == 4:
@@ -812,17 +806,16 @@ class AttackerClientMultiTargetNonIID(object):
                  weight_g[self.indicator_layer_name][idx] = self.indicator_param[i][0] + self.indicator_param[i][1]
 
 
-        self.indicator_indices_mat = self.indicator_indices_mat[min(1, len(self.indicator_indices_mat)):] # Correct slicing
+        self.indicator_indices_mat = self.indicator_indices_mat[min(1, len(self.indicator_indices_mat)):]
 
 
-    def local_train(self, round_num, local_epoch, mid_T, use_labels=True): # Renamed round to round_num
-        self.round = round_num # Keep self.round if used elsewhere internally
+    def local_train(self, round_num, local_epoch, mid_T, use_labels=True):
+        self.round = round_num
 
         if self.use_adaptive and round_num > 0:
             self.read_indicator()
 
         self.global_trainer.train()
-        # global_loss = 0 # This variable was defined but not used later, task_loss used instead
         if self.use_pgd_poison:
             model_original_vec = vectorize_net(self.target_model)
         eps = 8.0
@@ -845,13 +838,12 @@ class AttackerClientMultiTargetNonIID(object):
         count = 0
         while True:
             for x1, x2 in zip(self.train_loader, cycle(self.attacker_loader)):
-                x_benign, label_benign = x1[0].to(self.device), x1[1].to(self.device) # Renamed
-                ### add attack samples
+                x_benign, label_benign = x1[0].to(self.device), x1[1].to(self.device)
                 x_tar, y_tar, mask_trigger = x2[0].to(self.device), x2[1].to(self.device), x2[2].to(self.device)
                 
-                x_combined = torch.cat([x_benign, x_tar], dim=0) # Renamed x
-                label_combined = torch.cat([label_benign, y_tar], dim=0) # Renamed label
-
+                x_combined = torch.cat([x_benign, x_tar], dim=0)
+                label_combined = torch.cat([label_benign, y_tar], dim=0)
+                # Modifications for COLLUSION
                 # <<< MODIFIED BLOCK START >>>
                 # Calculate task loss
                 if use_labels:
@@ -891,21 +883,22 @@ class AttackerClientMultiTargetNonIID(object):
                     self.global_optim.step()
                     self.global_sched.step()
                     
-                if self.use_critical_poison == 2 or (self.use_critical_poison == 3 and round_num > 1): # Use round_num
+                if self.use_critical_poison == 2 or (self.use_critical_poison == 3 and round_num > 1):
                     self.reset_weight(self.candidate_weights)
 
                 self.ema(self.global_model, self.global_ema_model, self.ema_scale)
                 
-                if self._step_cound % 100 == 0: # Log occasionally
+                if self._step_cound % 100 == 0:
                     logging.info(f'Client {self.client_id} Rnd {round_num} Stp {self._step_cound}: TaskLoss={task_loss.item():.4f}, SimLoss={similarity_loss.item():.4f}, TotalLoss={total_loss.item():.4f}, LR={self.global_sched.get_last_lr()[0]:.6f}')
                 
                 self._step_cound += 1
-                count += x_combined.shape[0] # Use x_combined
+                count += x_combined.shape[0]
                 if count + x_combined.shape[0] > 10000: 
                     break
             if count + x_combined.shape[0] > 10000: 
                 break
         
+        # Modifications for COLLUSION Scaling
         ### We scale data according to formula: L = G + scale_rate * (X - G) / num_attackers
         if self.use_model_poison or self.use_critical_poison > 0:
             num_attackers_for_scaling = 1 # Default
@@ -931,8 +924,7 @@ class AttackerClientMultiTargetNonIID(object):
             weight_g = self.global_model.state_dict()
             weight_pre = self.target_model.state_dict()
             
-            for index_val in self.indicator_indices_mat[:min(1, len(self.indicator_indices_mat))]: # Iterate up to 1 or list length
-                # Ensure index_val is correctly formatted for indexing weight_g
+            for index_val in self.indicator_indices_mat[:min(1, len(self.indicator_indices_mat))]:
                 current_weight_val = 0
                 prev_weight_val = 0
                 if isinstance(index_val, list) and len(index_val) == 4:
@@ -962,7 +954,6 @@ class AttackerClientMultiTargetNonIID(object):
                         weight_g[self.indicator_layer_name][index_val] = new_adaptive_val
                 
             logging.info(f'indicator_param: {self.indicator_param}')
-            # logging.info(f'indicator_param_update: {(weight_g[self.indicator_layer_name][index_val] - weight_pre[self.indicator_layer_name][index_val])}') # index_val might be out of scope
 
         logging.info(f'Client {self.client_id}: scale rate: {self.scale_rate}')
         return self.global_model, self.global_ema_model
@@ -985,11 +976,11 @@ class AttackerClientMultiTargetNonIID(object):
         if labels == None:
             sample = self.global_ema_sampler(self.x_T_i, self.miu_sample, self.trigger_mask, labels=None)
         else:
-            sample = self.global_ema_sampler(x_T, start_step, end_step, labels) # Original logic for labels
+            sample = self.global_ema_sampler(x_T, start_step, end_step, labels)
         self.global_ema_model.train()
         return sample
 
-class AttackerClientMultiTargetNonIIDLayerSub(object):
+class AttackerClientMultiTargetNonIIDLayerSub(object): # NEVER USED IN OUR PAPER
     def __init__(self, client_id, dataset_name, train_dataset, train_loader, attacker_dataset, 
                  attacker_loader, use_model_poison, use_pgd_poison, use_critical_poison, critical_proportion,
                  use_bclayersub_poison, scale_rate, device, ema_scale=0.9999, scaled=False,
@@ -1028,7 +1019,7 @@ class AttackerClientMultiTargetNonIIDLayerSub(object):
         self.global_sched = None
         self.global_trainer = None
         self.global_ema_sampler = None
-        
+        # Modifications for COLLUSION altough unnecessary because we never use Layer SUB
         self.malicious_model = None # For LayerSub
         self.malicious_ema_model = None # For LayerSub
         self.global_adv_trainer = None # For LayerSub malicious model

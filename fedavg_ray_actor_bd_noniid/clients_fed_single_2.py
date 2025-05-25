@@ -881,7 +881,7 @@ class AttackerClientMultiTargetNonIID(object):
                 break
         
         ### We scale data according to formula: L = 100*X-99*G = G + (100*X- 100*G).
-        if self.use_model_poison or self.use_critical_poison > 0:
+        if self.use_model_poison or self.use_critical_poison > 0: # NEW SCALING
 
             if self.scaled:
                 new_scale_rate = self.scale_rate / 2
@@ -950,7 +950,7 @@ class AttackerClientMultiTargetNonIID(object):
         self.global_ema_model.train()
         return sample
 
-class AttackerClientMultiTargetNonIIDLayerSub(object):
+class AttackerClientMultiTargetNonIIDLayerSub(object): # We don't use this in our paper
     ### For layer substitution, Train benign for 50% time and Train attack for another 50% time.
     def __init__(self, client_id, dataset_name, train_dataset, train_loader, attacker_dataset, 
                  attacker_loader, use_model_poison, use_pgd_poison, use_critical_poison, critical_proportion,
@@ -1720,6 +1720,7 @@ class ClientsGroupMultiTargetAttackedNonIID(object):
                     benign_batch_size = self.batch_size-attack_batch_size
                 current_time = datetime.datetime.now()
                 formatted_time = current_time.strftime('%Y%m%d_%H%M%S')
+                # Changed naming
                 if self.scaled:
                     train_dataset_benign, dataset_attacker = data_allocation_attacker_noniid(client_data_idxs, \
                                                                                   attack_batch_size=attack_batch_size,

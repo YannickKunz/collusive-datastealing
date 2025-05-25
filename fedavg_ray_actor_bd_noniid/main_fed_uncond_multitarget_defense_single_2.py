@@ -233,7 +233,7 @@ def train():
             raise NotImplementedError('not implemented gradient.')
 
     FLAGS.logdir = FLAGS.logdir + f'_single_dataseed_{FLAGS.data_distribution_seed}_{FLAGS.defense_technique}_two_attackers'
-
+    # Added scaled naming
     if FLAGS.scaled:
         FLAGS.logdir = FLAGS.logdir + '_scaled'
 

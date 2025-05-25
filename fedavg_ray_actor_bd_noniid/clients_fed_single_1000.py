@@ -1711,6 +1711,7 @@ class ClientsGroupMultiTargetAttackedNonIID(object):
                     benign_batch_size = self.batch_size-attack_batch_size
                 current_time = datetime.datetime.now()
                 formatted_time = current_time.strftime('%Y%m%d_%H%M%S')
+                # New naming
                 train_dataset_benign, dataset_attacker = data_allocation_attacker_noniid(client_data_idxs, \
                                                                                   attack_batch_size=attack_batch_size,
                                                                                   num_targets=self.num_targets, \
