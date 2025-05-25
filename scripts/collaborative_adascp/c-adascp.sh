@@ -1,5 +1,5 @@
 # This script runs C-ADASCP with different configurations for CIFAR10 dataset.
-# To change the number of clients, modify inside clients_fed_coordinated the number of colluding clients.
+# To change the number of malicious clients, modify inside clients_fed_coordinated the number of colluding clients.
 
 CUDA_VISIBLE_DEVICES=0 python fedavg_ray_actor_bd_noniid/main_fed_coordinated.py \
           --train --flagfile ./config/CIFAR10_uncond.txt \
