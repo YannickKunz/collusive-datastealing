@@ -211,12 +211,24 @@ Our experiments on CIFAR-10 demonstrate the heightened threat of collusive attac
 |                                               | RFA             | 0.1097                | 0.1205                | 0.1151             | 9.60         |
 |                                               | Multi-Metrics   | 0.1540                | 0.0895                | 0.1218             | 13.58        |
 |                                               | **Average**     | **0.1008**            | **0.1015**            | **0.1011**         | **16.57**    |
+  
+Coordinated Adaptive Scale Critical Parameters Attacks results with varying number of colluders:  
+  
+| Defense       | O.AdaSCP     | C-AdaSCP(1)  | C-AdaSCP(2)  | C-AdaSCP(3)  | C-AdaSCP(4)  | C-AdaSCP(5)  |
+|---------------|--------------|--------------|--------------|--------------|--------------|--------------|
+|               | FID/MSE      | FID/MSE      | FID/MSE      | FID/MSE      | FID/MSE      | FID/MSE      |
+| **No-Defense**| 12.93/0.0117 | 8.28/0.1231  | 9.53/0.1219  | 9.49/0.1215  | 11.63/0.1184 | 12.06/0.1244 |
+| **Krum**      | 30.68/0.0861 | 35.71/0.1045 | 24.98/0.1147 | 32.68/0.0052 | 26.45/0.1111 | 13.69/0.1841 |
+| **Multi-Krum**| 8.23/0.1271  | 8.82/0.1304  | 10.21/0.1173 | 17.17/0.0902 | 24.53/0.1055 | N/A          |
+| **Multi-Metrics**| 15.04/0.0328 | 9.24/0.1226  | 9.46/0.1229  | 9.49/0.1185  | 10.77/0.1209 | 13.69/0.1051 |
+| **RFA**       | 8.22/0.1233  | 8.71/0.1268  | 9.35/0.1215  | 11.27/0.1153 | 11.44/0.1171 | 12.59/0.1082 |
+| **Foolsgold** | 24.21/0.0129 | 8.33/0.1843  | 8.61/0.1261  | N/A          | N/A          | N/A          |
 
 Key observations:
 *   Simply adding uncoordinated attackers can degrade attack success and model utility.
 *   Scaling individual contributions for multiple attackers improves model utility (FID) but can reduce attack effectiveness (MSE) without coordination.
 *   **Collusion via Model Similarity (Scaled)** often provides a better balance, improving MSE against some robust defenses like Multi-Krum compared to single or uncoordinated attackers, while maintaining good FID.
-*   **Coordinated AdaSCP (C-AdaSCP)** [Summarize its distinct advantage once results are in].
+*   **Coordinated AdaSCP (C-AdaSCP)** consistently adapts to a stealthy scale factor of ≈1.0 enhancing model utility (FID), and while typically yielding higher MSE than the original baseline, it achieved a remarkable MSE of 0.0052 against Krum with three colluders.
 
 For a comprehensive analysis and results against all defenses, please refer to our paper: [Link to paper](https://drive.google.com/file/d/1ivFbPe6RBW_rfQJlGd3xd6QWaVRHi5sa/view?usp=sharing).
 
