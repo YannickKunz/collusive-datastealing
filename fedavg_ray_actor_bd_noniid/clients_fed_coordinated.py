@@ -45,29 +45,32 @@ def get_preprocessed_celeba_dataset(root):
     dataset = datasets.ImageFolder(root=root, transform=transform)
 
     return dataset
+import logging
+import numpy as np
 
 # Shared state for colluding attackers
 class ColludersSharedState:
     def __init__(self):
+        # Holds f_values reported by each client for a round
         self.round_data = {}
+        # Stores the final aggregated result (tars_coll)
         self.aggregated_result = None
 
     def submit(self, client_id, f_value):
+        # Each client calls this to submit its f_value for the round
         self.round_data[client_id] = f_value
         logging.info(f"[ColluderState] Client {client_id} submitted f_value: {f_value}")
 
-
     def aggregate(self, adaptive_k, all_num_clients):
+        # Calculates a single tars_coll value based on all f_values
         logging.info(f"[ColluderState AGGREGATE] Received round_data: {self.round_data}")
 
         tars_j_list = []
-        processed_f_values = [] # To log f_values that were processed
+        processed_f_values = []  # Collects submitted f_values for logging
 
-        # adaptive_k should be a single numeric value.
-        # If it's passed as a tuple/list from the client (e.g., self.adaptive_k could be),
-        # ensure you get the numeric value. Usually, adaptive_k is a single hyperparameter.
+        # Ensure adaptive_k is a single number even if passed as a list/tuple
         if isinstance(adaptive_k, (tuple, list)):
-            if adaptive_k: # Check if not empty
+            if adaptive_k:
                 adaptive_k_val = adaptive_k[0]
                 logging.warning(f"[ColluderState AGGREGATE] adaptive_k was a list/tuple, using first element: {adaptive_k_val}")
             else:
@@ -77,35 +80,39 @@ class ColludersSharedState:
         else:
             adaptive_k_val = adaptive_k
 
+        # Validate adaptive_k_val type
         if not isinstance(adaptive_k_val, (int, float)):
             logging.error(f"[ColluderState AGGREGATE] adaptive_k_val is not a number: {adaptive_k_val}! Cannot proceed.")
             self.aggregated_result = None
             return
 
-
+        # Process each client's submitted f_j to compute tars_j
         for client_id, f_j_submitted_val in self.round_data.items():
             processed_f_values.append(f_j_submitted_val)
+            # Skip if f_j is not numeric
             if f_j_submitted_val is not None and not isinstance(f_j_submitted_val, (int, float)):
                 logging.warning(f"[ColluderState AGGREGATE] Client {client_id}: f_j={f_j_submitted_val} is type {type(f_j_submitted_val)}, expected number. Skipping.")
                 continue
 
+            # Compute tars_j if f_j is valid and not 1
             if f_j_submitted_val is not None and f_j_submitted_val != 1:
                 try:
                     logging.info(f"[ColluderState AGGREGATE DEBUG] For Client {client_id}: adaptive_k_val={adaptive_k_val}, f_j_submitted_val={f_j_submitted_val}")
                     tars = (adaptive_k_val - 1) / (f_j_submitted_val - 1)
                     logging.info(f"[ColluderState AGGREGATE] Client {client_id}: f_j={f_j_submitted_val}, calculated_tars_j={tars}")
+                    # Accept tars_j only if within (0, 2 * all_num_clients]
                     if 0 < tars <= 2 * all_num_clients:
                         tars_j_list.append(tars)
                     else:
                         logging.info(f"[ColluderState AGGREGATE] Client {client_id}: tars_j={tars} is OUT OF RANGE (0, {2 * all_num_clients}]")
                 except ZeroDivisionError:
-                    logging.warning(f"[ColluderState AGGREGATE] Client {client_id}: f_j={f_j_submitted_val} caused ZeroDivisionError (f_j - 1 was 0). Skipping.")
+                    logging.warning(f"[ColluderState AGGREGATE] Client {client_id}: f_j={f_j_submitted_val} caused ZeroDivisionError. Skipping.")
                 except TypeError as e:
                     logging.error(f"[ColluderState AGGREGATE] Client {client_id}: TypeError for f_j={f_j_submitted_val}, adaptive_k={adaptive_k_val}. Error: {e}. Skipping.")
-
             else:
                 logging.info(f"[ColluderState AGGREGATE] Client {client_id}: f_j={f_j_submitted_val} is None or 1, skipping tars_j calculation.")
 
+        # If we found valid tars_j values, average them into aggregated_result
         if len(tars_j_list) > 0:
             self.aggregated_result = float(np.mean(tars_j_list))
             logging.info(f"[ColluderState AGGREGATE] Valid tars_j values for aggregation: {tars_j_list}")
@@ -116,14 +123,14 @@ class ColludersSharedState:
             logging.info(f"[ColluderState AGGREGATE] No valid tars_j values found from f_values {processed_f_values}. tars_coll is None.")
 
     def get_aggregated(self):
+        # Returns the last computed tars_coll
         return self.aggregated_result
 
     def reset(self):
+        # Clears all submitted data and aggregated results for the next round
         logging.info(f"[ColluderState RESET] Resetting round_data and aggregated_result.")
         self.round_data = {}
         self.aggregated_result = None
-
-
 
 class ClientNonIID(object):
     def __init__(self, client_id, dataset_name, train_dataset, train_loader, device):
@@ -366,7 +373,7 @@ class AttackerClientMultiTargetNonIID(object):
     def __init__(self, client_id, dataset_name, train_dataset, train_loader, attacker_dataset, 
                  attacker_loader, use_model_poison, use_pgd_poison, use_critical_poison, critical_proportion,
                  scale_rate, global_pruning, use_adaptive, adaptive_lr, device, all_num_clients=5, ema_scale=0.9999,
-                 shared_state=None):
+                 shared_state=None, defense_technique='no-defense'):
         self.dataset_name = dataset_name
         if dataset_name == 'cifar10':
             self.img_size = 32
@@ -387,6 +394,7 @@ class AttackerClientMultiTargetNonIID(object):
         self.global_pruning = global_pruning
         self.use_adaptive = use_adaptive
         self.shared_state = shared_state
+        self.defense_technique = defense_technique
 
         if self.use_adaptive:
             self.adaptive_k = 50
@@ -400,11 +408,15 @@ class AttackerClientMultiTargetNonIID(object):
             self.indicator_indices_mat = []
             self.all_num_clients = all_num_clients
 
+        os.makedirs('./tmp/CADASCP', exist_ok=True)
         logging.shutdown()
         importlib.reload(logging)
-        logging.basicConfig(filename='./tmp/attacker.log',
+        log_filename = f'./tmp/CADASCP/attacker_{self.defense_technique}.log'
+        logging.basicConfig(
+            filename=log_filename,
             filemode='a',
-            level=logging.INFO)
+            level=logging.INFO
+        )
 
         self.scale_rate = scale_rate #10 #100 #10
 
@@ -1227,7 +1239,7 @@ class ClientsGroupMultiTargetAttackedNonIID(object):
                  use_pgd_poison=False, use_critical_poison=0, critical_proportion=0.8, 
                  use_bclayersub_poison=False, use_layer_substitution=False, use_no_poison=False, 
                  global_pruning=True, use_adaptive=False, adaptive_lr=0.2, all_num_clients=5, 
-                 ema_scale=0.9999, data_distribution_seed=42):
+                 ema_scale=0.9999, data_distribution_seed=42,  defense_technique='no-defense' ):
         self.dataset_name = dataset_name
         self.batch_size = batch_size
         self.clients_num = clients_num
@@ -1252,9 +1264,17 @@ class ClientsGroupMultiTargetAttackedNonIID(object):
         self.adaptive_lr = adaptive_lr
         self.use_no_poison = use_no_poison
 
-        self.colluding_clients = 2
+        self.defense_technique = defense_technique
+
+        ### Coordinated attack
+        self.colluding_clients = 1
         self.colluders_shared_state = ColludersSharedState()
+
+
+
         self.data_allocation()
+
+
     def data_allocation(self):
         if self.dataset_name == 'cifar10':
             train_dataset = datasets.CIFAR10(
@@ -1316,7 +1336,7 @@ class ClientsGroupMultiTargetAttackedNonIID(object):
                 train_dataset_benign, dataset_attacker = data_allocation_attacker_noniid(client_data_idxs, \
                                                                                   attack_batch_size=attack_batch_size,
                                                                                   num_targets=self.num_targets, \
-                                                                                  save_targets_path=f'./images/targets_{self.num_targets}_fl_{formatted_time}_seed_{self.data_distribution_seed}',
+                                                                                  save_targets_path=f'./images/CADASCP/targets_{self.num_targets}_{self.defense_technique}_fl_{formatted_time}_seed_{self.data_distribution_seed}',
                                                                                   seed=self.data_distribution_seed,
                                                                                   dataset_name=self.dataset_name)
                 
@@ -1340,7 +1360,7 @@ class ClientsGroupMultiTargetAttackedNonIID(object):
                                 self.use_critical_poison, self.critical_proportion,
                                 self.scale_rate, self.global_pruning, self.use_adaptive, self.adaptive_lr,
                                 self.device, all_num_clients=self.all_num_clients, ema_scale=self.ema_scale,
-                                shared_state=self.colluders_shared_state)
+                                shared_state=self.colluders_shared_state, defense_technique=self.defense_technique)
             else:
                 train_loader_client = DataLoader(
                     train_dataset_client,
