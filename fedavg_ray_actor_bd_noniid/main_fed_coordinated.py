@@ -150,11 +150,11 @@ def init_defender(FLAGS):
         # doesn't really add noise. just clips
         _defender = WeightDiffClippingDefense(norm_bound=FLAGS.norm_bound)
     elif defense_technique == "multi-metrics":
-        _defender = Multi_metrics(num_workers=FLAGS.part_nets_per_round, num_adv=2, p=FLAGS.multi_p)
+        _defender = Multi_metrics(num_workers=FLAGS.part_nets_per_round, num_adv=1, p=FLAGS.multi_p)
     elif defense_technique == "krum":
-        _defender = Krum(mode='krum', num_workers=FLAGS.part_nets_per_round, num_adv=2)
+        _defender = Krum(mode='krum', num_workers=FLAGS.part_nets_per_round, num_adv=1)
     elif defense_technique == "multi-krum":
-        _defender = Krum(mode='multi-krum', num_workers=FLAGS.part_nets_per_round, num_adv=2)
+        _defender = Krum(mode='multi-krum', num_workers=FLAGS.part_nets_per_round, num_adv=1)
     elif defense_technique == "rfa":
         _defender = RFA()
     elif defense_technique == "foolsgold":
@@ -171,11 +171,8 @@ def train():
     torch.cuda.manual_seed_all(42)
     
     if FLAGS.dataset_name == 'cifar10':
-        FLAGS.logdir = './logs/cifar10_fedavg_ray_actor_att_mul_uncond_def_noniid/no-defense'
+        FLAGS.logdir = f'./logs/CADASCP/{FLAGS.defense_technique}'
         FLAGS.img_size = 32
-    elif FLAGS.dataset_name == 'celeba':
-        FLAGS.logdir = './logs/celeba_fedavg_att_mul_uncond_def_noniid'
-        FLAGS.img_size = 64
     else:
         raise NotImplementedError
 
@@ -278,7 +275,8 @@ def train():
         scale_rate=FLAGS.model_poison_scale_rate, use_model_poison=FLAGS.use_model_poison, use_pgd_poison=FLAGS.use_pgd_poison, 
         use_critical_poison=FLAGS.use_critical_poison, critical_proportion=FLAGS.critical_proportion, use_bclayersub_poison=FLAGS.use_bclayersub_poison,
         use_layer_substitution=FLAGS.use_layer_substitution, use_no_poison=FLAGS.use_no_poison, global_pruning=FLAGS.global_pruning, use_adaptive=FLAGS.use_adaptive,
-        adaptive_lr=FLAGS.adaptive_lr, ema_scale=FLAGS.ema_scale, data_distribution_seed=FLAGS.data_distribution_seed)
+        adaptive_lr=FLAGS.adaptive_lr, ema_scale=FLAGS.ema_scale, data_distribution_seed=FLAGS.data_distribution_seed,
+        defense_technique=FLAGS.defense_technique )
     
 
     # init local_parameters
